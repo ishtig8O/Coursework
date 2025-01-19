@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта пожаров</title>
+    <style>
+
+    #confirm-button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #c90000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #confirm-button:hover {
+        background-color: #a00000;
+    }
+
+
+
+
+
+
+
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #c90000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        .map-container {
+            margin-top: 20px;
+            width: 100%;
+            height: 500px;
+            border: 2px solid #c90000;
+        }
+
+        header {
+            background: #b22222;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        /* nav {
+            background: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        nav a:hover {
+            background: #575757;
+        } */
+        nav {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            /* padding: 10px 0; */
+            
+
+            /* border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
+        }
+
+        nav a {
+            color: #000000;
+            padding: 10px 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- <header>
+        <h1>Статистика природных пожаров</h1>
+    </header> -->
+    
+    <nav> 
+        <a href="index.html">Главная</a>
+        <a href="trends.html">Годовой анализ</a>
+        <a href="seasonal_patterns.html">Месячный анализ</a>
+        <a href="regionalS.html">Региональный анализ</a>
+        <a href="map.html">Карта пожаров</a>
+        <a href="analysis.html">Прогнозирование пожаров</a>
+  </nav>
+    <!-- <div class="header">
+        Карта пожаров
+    </div> -->
+    <div class="container">
+        <div id="map" class="map-container"></div>
+    </div>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=400fc382-df67-46d0-82c6-ce613229c92b&lang=ru_RU" type="text/javascript">
+    </script><script src="map.js"></script>
+   
+   <div class="container">
+    <label for="year-select">Выберите год:</label>
+    <select id="year-select">
+        <option value="">Все годы</option>
+    </select>
+    <button id="confirm-button">Подтвердить</button>
+    
+</div>
+    
+</body>
+</html>

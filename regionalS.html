@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Региональный анализ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+        header {
+            background: #b22222;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            /* padding: 10px 0; */
+            
+
+            /* border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
+        }
+
+        nav a {
+            color: #000000;
+            padding: 10px 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #ffffff;
+        }
+
+
+
+        /* header {
+            background: #b22222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        } */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .chart {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('regionalS.php'); // Подключение к PHP-скрипту
+                const data = await response.json();
+                renderCharts(data);
+            } catch (error) {
+                console.error('Ошибка получения данных:', error);
+            }
+        }
+
+        function renderCharts(data) {
+            const chartContainer = document.getElementById('charts');
+
+            // Регионы с наибольшей плотностью пожаров
+            const highRiskChart = document.createElement('div');
+            highRiskChart.classList.add('chart');
+            highRiskChart.innerHTML = `
+                <h3>Регионы с наибольшей плотностью пожаров</h3>
+                <canvas id="highRiskChart"></canvas>
+            `;
+            chartContainer.appendChild(highRiskChart);
+            drawHighRiskChart(data.highRiskRegions);
+
+            // Динамика пожаров по регионам
+            const regionalTrendsChart = document.createElement('div');
+            regionalTrendsChart.classList.add('chart');
+            regionalTrendsChart.innerHTML = `
+                <h3>Динамика пожаров по регионам</h3>
+                <canvas id="regionalTrendsChart"></canvas>
+            `;
+            chartContainer.appendChild(regionalTrendsChart);
+            drawRegionalTrendsChart(data.regionalTrends);
+
+            // Лидеры и аутсайдеры
+            const leadersChart = document.createElement('div');
+            leadersChart.classList.add('chart');
+            leadersChart.innerHTML = `
+                <h3>Лидеры и аутсайдеры по числу пожаров</h3>
+                <canvas id="leadersChart"></canvas>
+            `;
+            chartContainer.appendChild(leadersChart);
+            drawLeadersChart(data.leadersAndOutsiders);
+
+
+            // Лидеры и аутсайдеры
+            const leadersChart1 = document.createElement('div');
+            leadersChart1.classList.add('chart');
+            leadersChart1.innerHTML = `
+                <h3>Лидеры и аутсайдеры по числу пожаров</h3>
+                <canvas id="leadersChart1"></canvas>
+            `;
+            chartContainer.appendChild(leadersChart1);
+            drawLeadersChart1(data.leadersAndOutsiders);
+        }
+
+        function drawHighRiskChart(highRiskRegions) {
+            const ctx = document.getElementById('highRiskChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: highRiskRegions.map(item => item.region),
+                    datasets: [{
+                        label: 'Количество пожаров',
+                        data: highRiskRegions.map(item => item.fire_count),
+                        backgroundColor: 'rgba(178, 34, 34, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Регион'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Количество пожаров'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // function drawRegionalTrendsChart(regionalTrends) {
+        //     const ctx = document.getElementById('regionalTrendsChart').getContext('2d');
+        //     // Обработка данных для группировки по регионам
+        //     const labels = [...new Set(regionalTrends.map(item => item.year))];
+        //     const datasets = [...new Set(regionalTrends.map(item => item.region))].map(region => {
+        //         return {
+        //             label: region,
+        //             data: labels.map(year => {
+        //                 const record = regionalTrends.find(item => item.year == year && item.region == region);
+        //                 return record ? record.fire_count : 0;
+        //             }),
+        //             borderColor: 'rgba(34, 139, 34, 0.8)',
+        //             fill: false
+        //         };
+        //     });
+
+        //     new Chart(ctx, {
+        //         type: 'line',
+        //         data: {
+        //             labels: labels,
+        //             datasets: datasets
+        //         },
+        //         options: {
+        //             responsive: true,
+        //             plugins: {
+        //                 legend: {
+        //                     display: true,
+        //                 }
+        //             },
+        //             scales: {
+        //                 x: {
+        //                     title: {
+        //                         display: true,
+        //                         text: 'Год'
+        //                     }
+        //                 },
+        //                 y: {
+        //                     title: {
+        //                         display: true,
+        //                         text: 'Количество пожаров'
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
+
+        function drawRegionalTrendsChart(regionalTrends) {
+    const ctx = document.getElementById('regionalTrendsChart').getContext('2d');
+
+    // Функция для генерации случайного цвета
+    function getRandomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgba(${r}, ${g}, ${b}, 0.8)`;
+    }
+
+    // Обработка данных для группировки по регионам
+    const labels = [...new Set(regionalTrends.map(item => item.year))];
+    const datasets = [...new Set(regionalTrends.map(item => item.region))].map(region => {
+        return {
+            label: region,
+            data: labels.map(year => {
+                const record = regionalTrends.find(item => item.year == year && item.region == region);
+                return record ? record.fire_count : 0;
+            }),
+            borderColor: getRandomColor(), // Используем случайный цвет для каждого региона
+            fill: false
+        };
+    });
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Год'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Количество пожаров'
+                    }
+                }
+            }
+        }
+    });
+}
+
+        function drawLeadersChart1(leadersAndOutsiders) {
+            const ctx = document.getElementById('leadersChart1').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: leadersAndOutsiders.map(item => item.region),
+                    datasets: [{
+                        label: 'Общая площадь (га)',
+                        data: leadersAndOutsiders.map(item => item.total_area),
+                        backgroundColor: 'rgba(34, 139, 34, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Регион'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Общая площадь (га)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    function drawLeadersChart(leadersAndOutsiders) {
+    const ctx = document.getElementById('leadersChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie', // Заменяем 'bar' на 'pie'
+        data: {
+            labels: leadersAndOutsiders.map(item => item.region), // Названия регионов
+            datasets: [{
+                label: 'Общая площадь (га)',
+                data: leadersAndOutsiders.map(item => item.total_area), // Площади
+                backgroundColor: leadersAndOutsiders.map((_, index) => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.8)`), // Генерация случайных цветов
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top', // Позиция легенды
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            return `${label}: ${value} га`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}   
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</head>
+<body>
+
+
+    
+    <!-- <nav>
+        <a href="trends.html">Долгосрочные тренды</a>
+        <a href="seasonal_patterns.html">Сезонные паттерны</a>
+        <a href="regionalS.html">Региональный анализ</a>
+        <a href="map.html">Крата пожаров</a>
+        <a href="">Прогнозирование</a>
+    </nav> -->
+
+    <nav> 
+        <a href="index.html">Главная</a>
+        <a href="trends.html">Годовой анализ</a>
+        <a href="seasonal_patterns.html">Месячный анализ</a>
+        <a href="regionalS.html">Региональный анализ</a>
+        <a href="map.html">Карта пожаров</a>
+        <a href="analysis.html">Прогнозирование пожаров</a>
+  </nav>
+
+
+
+<div class="container">
+    <div id="charts">
+        <!-- Графики будут динамически добавлены сюда -->
+    </div>
+</div>
+
+<!-- <footer>
+    <p>&copy; 2025 Статистика природных пожаров. Все права защищены.</p>
+</footer> -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

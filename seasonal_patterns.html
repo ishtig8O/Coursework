@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сезонные паттерны</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+        
+
+        
+        nav {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            /* padding: 10px 0; */
+            
+
+            /* border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
+        }
+
+        nav a {
+            color: #000000;
+            padding: 10px 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #ffffff;
+        }
+
+
+        /* .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        } */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            /* background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
+            
+        }
+        .chart {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        } */
+
+
+
+        footer a {
+      color: #000000;
+      text-decoration: none;
+    }
+    
+    footer .btn {
+      background: #000000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+
+
+
+
+.container {
+    flex: 1; /* Контент занимает доступное пространство между header и footer */
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    /* border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+footer {
+    background: #ffffff;
+    color: #000000;
+    text-align: center;
+    padding: 10px;
+    
+    position: relative; /* Динамичное поведение для sticky footer */
+    width: 100%;
+}
+    </style>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('seasonal_patterns.php'); // Подключение к PHP-скрипту
+                const data = await response.json();
+                renderCharts(data);
+            } catch (error) {
+                console.error('Ошибка получения данных:', error);
+            }
+        }
+
+        function renderCharts(data) {
+            const chartContainer = document.getElementById('charts');
+
+            // График количества пожаров по месяцам
+            const monthlyFireChart = document.createElement('div');
+            monthlyFireChart.classList.add('chart');
+            monthlyFireChart.innerHTML = `
+                <h3>Количество пожаров по месяцам</h3>
+                <canvas id="monthlyFireChart"></canvas>
+            `;
+            chartContainer.appendChild(monthlyFireChart);
+            drawMonthlyFireChart(data.monthlyFireData);
+
+            // График средней площади пожаров по месяцам
+            const monthlyAreaChart = document.createElement('div');
+            monthlyAreaChart.classList.add('chart');
+            monthlyAreaChart.innerHTML = `
+                <h3>Средняя площадь пожаров по месяцам</h3>
+                <canvas id="monthlyAreaChart"></canvas>
+            `;
+            chartContainer.appendChild(monthlyAreaChart);
+            drawMonthlyAreaChart(data.monthlyAreaData);
+        }
+
+        function drawMonthlyFireChart(monthlyFireData) {
+            const ctx = document.getElementById('monthlyFireChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: monthlyFireData.map(item => item.month),
+                    datasets: [{
+                        label: 'Количество пожаров',
+                        data: monthlyFireData.map(item => item.count),
+                        borderColor: 'rgba(178, 34, 34, 1)',
+                        backgroundColor: 'rgba(178, 34, 34, 0.2)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Месяц'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Количество'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function drawMonthlyAreaChart(monthlyAreaData) {
+            const ctx = document.getElementById('monthlyAreaChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: monthlyAreaData.map(item => item.month),
+                    datasets: [{
+                        label: 'Средняя площадь (га)',
+                        data: monthlyAreaData.map(item => item.average_area),
+                        backgroundColor: 'rgba(34, 139, 34, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Месяц'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Средняя площадь (га)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</head>
+<body>
+    <!-- <header>
+        <h1>Статистика природных пожаров</h1>
+        <h1>Сезонные паттерны</h1>
+    </header> -->
+    
+    <!-- <nav>
+        <a href="trends.html">Долгосрочные тренды</a>
+        <a href="seasonal_patterns.html">Сезонные паттерны</a>
+        <a href="regionalS.html">Региональный анализ</a>
+        <a href="map.html">Крата пожаров</a>
+        <a href="">Прогнозирование</a>
+    </nav> -->
+
+
+    <nav> 
+        <a href="index.html">Главная</a>
+        <a href="trends.html">Годовой анализ</a>
+        <a href="seasonal_patterns.html">Месячный анализ</a>
+        <a href="regionalS.html">Региональный анализ</a>
+        <a href="map.html">Карта пожаров</a>
+        <a href="analysis.html">Прогнозирование пожаров</a>
+  </nav>
+
+
+
+<div class="container">
+    <div id="charts">
+        <!-- Графики будут динамически добавлены сюда -->
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- <footer>
+    <div class="container">
+      <div class="contact-info">
+        <h3<li><a href="#"></a></li>Свяжитесь со мной</h3>
+        <p>Email: <a href="mailto:ishtig@vk.com">ishtig@vk.com</a></p>
+      </div>
+    </div>
+</footer> -->
+</body>
+</html>
