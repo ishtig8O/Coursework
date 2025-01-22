@@ -1,206 +1,10 @@
-<!-- <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анализ по координатам</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background: #b22222;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background: #b22222;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #8b1a1a;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <script>
-        async function fetchCoordinateData() {
-            const latitude = document.getElementById('latitude').value;
-            const longitude = document.getElementById('longitude').value;
-
-            if (!latitude || !longitude) {
-                alert('Введите координаты!');
-                return;
-            }
-
-            try {
-                const response = await fetch(`analysis.php?latitude=${latitude}&longitude=${longitude}`);
-                const data = await response.json();
-
-                if (data.error) {
-                    document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка: ${data.error}</p>`;
-                } else {
-                    document.getElementById('result').innerHTML = `
-                        <h3>Результаты анализа</h3>
-                        <p>Координаты: ${data.latitude}, ${data.longitude}</p>
-                        <p>Общее количество дней: ${data.total_days}</p>
-                        <p>Дней с пожарами: ${data.days_with_fire}</p>
-                        <p>Дней без пожаров: ${data.days_without_fire}</p>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка подключения: ${error.message}</p>`;
-            }
-        }
-    </script>
-</head>
-<body>
-
-<header>
-    <h1>Анализ по координатам</h1>
-</header>
-
-<div class="container">
-    <div class="form-group">
-        <label for="latitude">Широта:</label>
-        <input type="text" id="latitude" placeholder="Например: 55.75">
-    </div>
-    <div class="form-group">
-        <label for="longitude">Долгота:</label>
-        <input type="text" id="longitude" placeholder="Например: 37.62">
-    </div>
-    <button onclick="fetchCoordinateData()">Анализировать</button>
-
-    <div id="result" class="result"></div>
-</div>
-
-</body>
-</html>
-
- -->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анализ по координатам</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #333;
-        }
-        header {
-            background: #b22222;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background: #757575;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #b3b3b3;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-
-        nav {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            /* padding: 10px 0; */
-            
-
-            /* border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-
-        }
-
-        nav a {
-            color: #000000;
-            padding: 10px 15px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background: #ffffff;
-        }
-    </style>
-
+    <link rel="stylesheet" href="analysis.css">
 
 
 <script>
@@ -222,10 +26,12 @@
             } else {
                 document.getElementById('result').innerHTML = `
                     <h3>Результаты анализа</h3>
+                    <p>Регион: ${data.region}</p>
                     <p>Координаты: ${data.latitude}, ${data.longitude}</p>
                     <p>Общее количество дней: ${data.total_days}</p>
                     <p>Дней с пожарами: ${data.days_with_fire}</p>
                     <p>Дней без пожаров: ${data.days_without_fire}</p>
+
                 `;
             }
         } catch (error) {
@@ -249,19 +55,6 @@
 
             console.log(latitude);
             console.log(longitude);
-
-            // if (isNaN(latitude) || latitude < -90 || latitude > 90) {
-            //     alert('Введите корректную широту (от -90 до 90)');
-            //     return;
-            // }
-            // if (isNaN(longitude) || longitude < -180 || longitude > 180) {
-            //     alert('Введите корректную долготу (от -180 до 180)');
-            //     return;
-            // }
-            // if (!month) {
-            //     alert('Выберите месяц');
-            //     return;
-            // }
 
             document.getElementById('result1').innerHTML = '<p>Загрузка...</p>';
 
@@ -296,7 +89,7 @@
         <a href="seasonal_patterns.html">Месячный анализ</a>
         <a href="regionalS.html">Региональный анализ</a>
         <a href="map.html">Карта пожаров</a>
-        <a href="analysis.html">Прогнозирование пожаров</a>
+        <a href="analysis.html">Прогнозирование пожаров посредством ввода координат и месяца</a>
   </nav>
 
 

@@ -1,304 +1,17 @@
-<!-- <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Долгосрочные тренды</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        } -->
-        <!-- /* header {
-            background: #b22222;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        } */
-
-        /* header {
-            background: #b22222;
-            color: #fff;
-            padding: 20px 10px;
-            text-align: center;
-        }
-        nav {
-            background: #333;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #fff;
-            padding: 10px 15px;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        nav a:hover {
-            background: #575757;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-        .chart {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
-    <script>
-        async function fetchData() {
-            try {
-                const response = await fetch('db.php');
-                const data = await response.json();
-                renderCharts(data);
-            } catch (error) {
-                console.error('Ошибка получения данных:', error);
-            }
-        }
-
-        function renderCharts(data) {
-            const chartContainer = document.getElementById('charts');  -->
-
-            <!-- // График количества пожаров по годам
-            // const fireCountChart = document.createElement('div');
-            // fireCountChart.classList.add('chart');
-            // fireCountChart.innerHTML = `
-            //     <h3>Количество пожаров по годам</h3>
-            //     <canvas id="fireCountChart"></canvas>
-            // `;
-            // chartContainer.appendChild(fireCountChart);
-            // drawFireCountChart(data.yearlyFireCount);
-
-            // График площади пожаров по годам
-//             const areaChart = document.createElement('div');
-//             areaChart.classList.add('chart');
-//             areaChart.innerHTML = `
-//                 <h3>Площадь, охваченная огнем, по годам</h3>
-//                 <canvas id="areaChart"></canvas>
-//             `;
-//             chartContainer.appendChild(areaChart);
-//             drawAreaChart(data.yearlyAreaAffected);
-//         }
-
-//         function drawFireCountChart(yearlyFireCount) {
-//             const ctx = document.getElementById('fireCountChart').getContext('2d');
-//             new Chart(ctx, {
-//                 type: 'line',
-//                 data: {
-//                     labels: yearlyFireCount.map(item => item.year),
-//                     datasets: [{
-//                         label: 'Количество пожаров',
-//                         data: yearlyFireCount.map(item => item.count),
-//                         borderColor: 'rgba(178, 34, 34, 1)',
-//                         backgroundColor: 'rgba(178, 34, 34, 0.2)',
-//                     }]
-//                 },
-//                 options: {
-//                     responsive: true,
-//                     plugins: {
-//                         legend: {
-//                             display: true,
-//                         }
-//                     }
-//                 }
-//             });
-//         }
-
-//         function drawAreaChart(yearlyAreaAffected) {
-//             const ctx = document.getElementById('areaChart').getContext('2d');
-//             new Chart(ctx, {
-//                 type: 'bar',
-//                 data: {
-//                     labels: yearlyAreaAffected.map(item => item.year),
-//                     datasets: [{
-//                         label: 'Площадь (га)',
-//                         data: yearlyAreaAffected.map(item => item.total_area),
-//                         backgroundColor: 'rgba(34, 139, 34, 0.8)',
-//                     }]
-//                 },
-//                 options: {
-//                     responsive: true,
-//                     plugins: {
-//                         legend: {
-//                             display: true,
-//                         }
-//                     }
-//                 }
-//             });
-//         }
-
-//         document.addEventListener('DOMContentLoaded', fetchData);
-//     </script>
-// </head>
-// <body>
-
-//     <header>
-//         <h1>Статистика природных пожаров</h1>
-//         <h1>Долгосрочные тренды</h1>
-//     </header>
-    
-//     <nav>
-//         <a href="trends.html">Долгосрочные тренды</a>
-//         <a href="seasonal_patterns.html">Сезонные паттерны</a>
-//         <a href="regionalS.html">Региональный анализ</a>
-//         <a href="map.html">Крата пожаров</a>
-//         <a href="">Прогнозирование</a>
-//     </nav>
-// <header>
-    
-// </header>
-
-// <div class="container">
-//     <div id="charts">
-         Графики будут динамически добавлены сюда -->
-    <!-- </div>
-</div>
-
-<footer>
-    <p>&copy; 2025 Статистика природных пожаров. Все права защищены.</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</body>
-</html> --> 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Долгосрочные тренды</title>
-    <style>
-        /* * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    } */
+    <link rel="stylesheet" href="trends.css">
+    <style>    
     
-    body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #333;
-        }
-    
-    
-       
-
-        header {
-            background: #f5f5f5;
-            color: #ffffff;
-            padding: 20px 10px;
-            text-align: center;
-            border-bottom: 2px solid #ffffff;
-            
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            /* padding: 10px 0; */
-            
-
-            /* border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-
-        }
-
-        nav a {
-            color: #000000;
-            padding: 10px 15px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background: #ffffff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-            
-        }
-
-        .chart {
-            margin-bottom: 20px;
-        }
-
-        h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-       
-    
-    footer a {
-      color: #000000;
-      text-decoration: none;
-    }
-    
-    footer .btn {
-      background: #000000;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-    }
-
-
-
-
-
-    
-
-footer {
-    background: #ffffff;
-    color: #000000;
-    text-align: center;
-    padding: 10px;
-    
-    position: relative; /* Динамичное поведение для sticky footer */
-    width: 100%;
-}
     </style>
     <script>
         async function fetchData() {
             try {
-                const response = await fetch('db.php'); // Подключение к скрипту db.php
+                const response = await fetch('db.php'); 
                 const data = await response.json();
                 renderCharts(data);
             } catch (error) {
@@ -381,14 +94,6 @@ footer {
     </script>
 </head>
 <body>
-    <!-- <nav>
-        <a href="index.html">Главная</a>
-        <a href="trends.html">Годовой анализ</a>
-        <a href="seasonal_patterns.html">Месячный анализ</a>
-        <a href="regionalS.html">Региональный анализ</a>
-        <a href="map.html">Карта пожаров</a>
-        <a href="forecast.html">Прогнозирование</a>
-    </nav> -->
 
     <nav> 
         <a href="index.html">Главная</a>
@@ -403,7 +108,7 @@ footer {
 
     <div class="container">
         <div id="charts">
-            <!-- Графики будут динамически добавлены сюда -->
+            <!-- Графики  -->
         </div>
     </div>
 
@@ -414,14 +119,6 @@ footer {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 
-    <!-- <footer>
-        <div class="container">
-          <div class="contact-info">
-            <h3<li><a href="#"></a></li>Свяжитесь со мной</h3>
-            <p>Email: <a href="mailto:ishtig@vk.com">ishtig@vk.com</a></p>
-          </div>
-        </div>
-    </footer> -->
 </body>
 
 </html>

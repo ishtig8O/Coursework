@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  header {
+    background: #ffffff;
+    padding: 1rem 0;
+  }
+  
+  header h1 {
+    float: left;
+    font-size: 1.5rem;
+  }
+  
+  header nav {
+    float: right;
+  }
+  
+  header ul {
+    list-style: none;
+  }
+  
+  header ul li {
+    display: inline;
+    margin-left: 15px;
+  }
+  
+  header ul li a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .contact-btn {
+    padding: 8px 16px;
+    background: #000;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  .hero {
+    position: relative;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .hero img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .hero .btn {
+    padding: 10px 20px;
+    background: #000000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .fire-stats {
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .fire-stats img {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  
+  .fire-data .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .fire-data .card {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+  }
+  
+  .fire-data .card img {
+    max-width: 100%;
+    margin-bottom: 10px;
+    
+  }
+  
+  footer {
+    background: #ffffff;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    
+    bottom: 0;
+    width: 100%;
+  }
+  a {
+      color: #000000;
+    text-decoration: none;
+  }
+  
+  footer a {
+    color: #000000;
+    text-decoration: none;
+  }
+  
+  footer .btn {
+    background: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+ 
+  body {
+    padding-bottom: 50px; 
+  }
