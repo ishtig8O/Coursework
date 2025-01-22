@@ -4,25 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-$host = 'localhost:8080';
-$db   = 'courseworkFires';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
+include 'connectDB.php';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (PDOException $e) {
-    echo json_encode(['error' => 'Ошибка подключения: ' . $e->getMessage()]);
-    exit;
-}
 
 $latitude = isset($_GET['latitude']) ? (float)$_GET['latitude'] : null;
 $longitude = isset($_GET['longitude']) ? (float)$_GET['longitude'] : null;
@@ -44,9 +27,9 @@ $stmtCheckExact->execute(['latitude' => $latitude, 'longitude' => $longitude]);
 $exactMatch = $stmtCheckExact->fetchColumn();
 
 if ($exactMatch == 0) {
-    // Если точных координат нет, ищем ближайшие
+    // Если точных координат нет ищем ближайшие
     $queryFindClosest = "
-        SELECT latitude, longitude, 
+        SELECT latitude, longitude, region, 
                SQRT(POW(latitude - :latitude, 2) + POW(longitude - :longitude, 2)) AS distance
         FROM fires_v
         ORDER BY distance ASC
@@ -55,10 +38,13 @@ if ($exactMatch == 0) {
     $stmtFindClosest = $pdo->prepare($queryFindClosest);
     $stmtFindClosest->execute(['latitude' => $latitude, 'longitude' => $longitude]);
     $closest = $stmtFindClosest->fetch();
+    
+    $region = '';
 
     if ($closest) {
         $latitude = $closest['latitude'];
         $longitude = $closest['longitude'];
+        $region = $closest['region'];
     } else {
         echo json_encode(['error' => 'Данные не найдены для указанных координат']);
         exit;
@@ -93,6 +79,7 @@ try {
     $daysWithoutFire = $totalDays - $daysWithFire;
 
     $response = [
+        'region' => $region,
         'latitude' => $latitude,
         'longitude' => $longitude,
         'total_days' => $totalDays,
