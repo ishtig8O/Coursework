@@ -4,125 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сезонные паттерны</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #333;
-        }
-        
+    <link rel="stylesheet" href="regional_patterns.css">
 
-        
-        nav {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            /* padding: 10px 0; */
-            
-
-            /* border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-
-        }
-
-        nav a {
-            color: #000000;
-            padding: 10px 15px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background: #ffffff;
-        }
-
-
-        /* .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        } */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            /* background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-
-            
-        }
-        .chart {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        /* footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        } */
-
-
-
-        footer a {
-      color: #000000;
-      text-decoration: none;
-    }
-    
-    footer .btn {
-      background: #000000;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-    }
-
-
-
-
-
-.container {
-    flex: 1; /* Контент занимает доступное пространство между header и footer */
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    /* border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-}
-
-footer {
-    background: #ffffff;
-    color: #000000;
-    text-align: center;
-    padding: 10px;
-    
-    position: relative; /* Динамичное поведение для sticky footer */
-    width: 100%;
-}
-    </style>
     <script>
         async function fetchData() {
             try {
-                const response = await fetch('seasonal_patterns.php'); // Подключение к PHP-скрипту
+                const response = await fetch('seasonal_patterns.php'); 
                 const data = await response.json();
                 renderCharts(data);
             } catch (error) {
@@ -233,18 +120,7 @@ footer {
     </script>
 </head>
 <body>
-    <!-- <header>
-        <h1>Статистика природных пожаров</h1>
-        <h1>Сезонные паттерны</h1>
-    </header> -->
-    
-    <!-- <nav>
-        <a href="trends.html">Долгосрочные тренды</a>
-        <a href="seasonal_patterns.html">Сезонные паттерны</a>
-        <a href="regionalS.html">Региональный анализ</a>
-        <a href="map.html">Крата пожаров</a>
-        <a href="">Прогнозирование</a>
-    </nav> -->
+
 
 
     <nav> 
@@ -260,7 +136,7 @@ footer {
 
 <div class="container">
     <div id="charts">
-        <!-- Графики будут динамически добавлены сюда -->
+        <!-- Графики  -->
     </div>
 </div>
 
@@ -269,13 +145,5 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-<!-- <footer>
-    <div class="container">
-      <div class="contact-info">
-        <h3<li><a href="#"></a></li>Свяжитесь со мной</h3>
-        <p>Email: <a href="mailto:ishtig@vk.com">ishtig@vk.com</a></p>
-      </div>
-    </div>
-</footer> -->
 </body>
 </html>
